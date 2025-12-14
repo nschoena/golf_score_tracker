@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/my-data.schema.json",
+  "title": "Course document schema",
+  "description": "The schema for the course document I am designing.",
+  "type": "object",
+  "properties": {
+    "courseName": {
+        "type": "string",
+        "description": "The name of the golf course."    
+    },
+    "tees": {
+        "type": "string",
+        "description": "Name of tees."
+    },
+    "courseSide": {
+        "type": "string",
+        "description": "Course section: Front 9, Back 9, or Full 18",
+        "enum": [
+            "Front",
+            "Back",
+            "Full"
+        ]
+    },
+    "location": {
+        "type": "string",
+        "description": "Where the course is located."
+    },
+    "rating": {
+        "type": "number",
+        "description": "Course rating."
+    },
+    "slope": {
+        "type": "integer",
+        "description": "Course slope."
+    },
+    "yardage": {
+        "type": "integer",
+        "description": "Total yards for this section of the course."
+    },
+    "par": {
+        "type": "integer",
+        "description": "Par for this section of the course."
+    },
+    "holes": {
+        "type": "array",
+        "description": "An ordered list of golf holes for the course.",        
+        "minItems": 9,
+        "maxItems": 18,
+        "items": {
+            "type": "object",
+            "properties": {
+                "holeNumber": {"type": "integer"},
+                "distance": {"type": "integer"},
+                "par": {"type": "integer"},
+                "handicap": {"type": "integer"}                
+            }
+        }
+    }
+
+  },
+  "required": [
+    "courseName",
+    "location",
+    "courseSide",
+    "tees",
+    "rating",
+    "slope",
+    "par",
+    "holes"
+  ]
+}

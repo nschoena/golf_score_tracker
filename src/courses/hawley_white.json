@@ -1,0 +1,121 @@
+{
+  "$schema": "./course.schema.json",
+  "courseName": "Hawley Golf & Country Club",
+  "tees": "White",
+  "courseSide": "Full",
+  "location": "Hawley, MN",
+  "rating": 67.5,
+  "slope": 120,
+  "yardage": 5773,
+  "par": 71,
+  "holes": [
+    {
+      "holeNumber": 1,
+      "distance": 303,
+      "par": 4,
+      "handicap": 17
+    },
+    {
+      "holeNumber": 2,
+      "distance": 171,
+      "par": 3,
+      "handicap": 5
+    },
+    {
+      "holeNumber": 3,
+      "distance": 388,
+      "par": 4,
+      "handicap": 3
+    },
+    {
+      "holeNumber": 4,
+      "distance": 303,
+      "par": 4,
+      "handicap": 15
+    },
+    {
+      "holeNumber": 5,
+      "distance": 493,
+      "par": 5,
+      "handicap": 1
+    },
+    {
+      "holeNumber": 6,
+      "distance": 314,
+      "par": 4,
+      "handicap": 13
+    },
+    {
+      "holeNumber": 7,
+      "distance": 355,
+      "par": 4,
+      "handicap": 11
+    },
+    {
+      "holeNumber": 8,
+      "distance": 180,
+      "par": 3,
+      "handicap": 7
+    },
+    {
+      "holeNumber": 9,
+      "distance": 503,
+      "par": 5,
+      "handicap": 9
+    },
+    {
+      "holeNumber": 10,
+      "distance": 164,
+      "par": 3,
+      "handicap": 6
+    },
+    {
+      "holeNumber": 11,
+      "distance": 277,
+      "par": 4,
+      "handicap": 18
+    },
+    {
+      "holeNumber": 12,
+      "distance": 353,
+      "par": 4,
+      "handicap": 2
+    },
+    {
+      "holeNumber": 13,
+      "distance": 134,
+      "par": 3,
+      "handicap": 16
+    },
+    {
+      "holeNumber": 14,
+      "distance": 496,
+      "par": 5,
+      "handicap": 8
+    },
+    {
+      "holeNumber": 15,
+      "distance": 362,
+      "par": 4,
+      "handicap": 4
+    },
+    {
+      "holeNumber": 16,
+      "distance": 176,
+      "par": 3,
+      "handicap": 14
+    },
+    {
+      "holeNumber": 17,
+      "distance": 471,
+      "par": 5,
+      "handicap": 10
+    },
+    {
+      "holeNumber": 18,
+      "distance": 330,
+      "par": 4,
+      "handicap": 12
+    }
+  ]
+}
