@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/my-data.schema.json",
+  "title": "Score document schema",
+  "description": "The schema for the score document I am designing.",
+  "type": "object",
+  "properties": {
+    "courseName": {
+        "type": "string",
+        "description": "The name of the golf course you played."    
+    },
+    "courseSide": {
+        "type": "string",
+        "description": "Course section played: Front 9, Back 9, or Full 18",
+        "enum": [
+            "Front",
+            "Back",
+            "All"
+        ]
+    },
+    "tees": {
+        "type": "string",
+        "description": "Name of tees that were played."
+    },
+    "date": {
+        "type": "string",
+        "description": "The date the round was played in YYYY-MM-DD.",
+        "format": "date"
+    },
+    "score": {
+        "type": "integer",
+        "description": "Total score. This could be calculated from the holesPlayed."
+    },
+    "girPercentage": {
+        "type": "number",
+        "description": "Percentage of greens hit in regulation. This can be calculated from holesPlayed."
+    },
+    "teeAccuracy": {
+        "type": "array",
+        "description": "Percentage breakdown of tee shot accuracy (Missed Left, Hit Fairway, Missed Right). This can be calculated from holesPlayed.",
+        "minItems": 3,
+        "maxItems": 3,
+        "items": [
+            { "type": "number", "description": "Percentage missed left."},
+            { "type": "number", "description": "Percentage hit fairway."},
+            { "type": "number", "description": "Percentage missed right."}
+        ]
+    },
+    "holesPlayed": {
+        "type": "array",
+        "description": "An ordered list of scores for the golf holes played.",        
+        "minItems": 9,
+        "maxItems": 18,
+        "items": {
+            "type": "object",
+            "properties": {
+                "holeNumber": {"type": "integer"},
+                "strokes": {
+                    "type": "integer",
+                    "description": "Total number of strokes including putts."
+                },
+                "putts": {
+                    "type": "integer",
+                    "description": "Total number of putts for this hole."
+                },
+                "driveResult": {
+                    "type": "string",
+                    "description": "Result of your drive, Par3TeeShot if par 3",
+                    "enum": [
+                        "Missed Left",
+                        "Hit Fairway",
+                        "Missed Right",
+                        "Par3TeeShot"
+                    ]
+                },
+                "gir": {
+                    "type": "boolean",
+                    "description": "True if green in regulation, False if not. This could be calculated using the formula (strokes-putts) - (par-2)"
+                }               
+            }
+        },
+        "required": [
+            "holeNumber",
+            "strokes"
+        ]
+    }
+  },
+  "required": [
+    "courseName",
+    "courseSide",
+    "tees",
+    "date",
+    "score",
+    "holesPlayed"
+  ]
+}

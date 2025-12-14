@@ -1,0 +1,121 @@
+{
+  "$schema": "./course.schema.json",
+  "courseName": "Village Green Golf Course",
+  "tees": "White",
+  "courseSide": "Full",
+  "location": "Moorhead, MN",
+  "rating": 70.9,
+  "slope": 128,
+  "yardage": 6352,
+  "par": 72,
+  "holes": [
+    {
+      "holeNumber": 1,
+      "distance": 351,
+      "par": 4,
+      "handicap": 13
+    },
+    {
+      "holeNumber": 2,
+      "distance": 390,
+      "par": 4,
+      "handicap": 1
+    },
+    {
+      "holeNumber": 3,
+      "distance": 507,
+      "par": 5,
+      "handicap": 5
+    },
+    {
+      "holeNumber": 4,
+      "distance": 141,
+      "par": 3,
+      "handicap": 15
+    },
+    {
+      "holeNumber": 5,
+      "distance": 520,
+      "par": 5,
+      "handicap": 7
+    },
+    {
+      "holeNumber": 6,
+      "distance": 117,
+      "par": 3,
+      "handicap": 17
+    },
+    {
+      "holeNumber": 7,
+      "distance": 413,
+      "par": 4,
+      "handicap": 3
+    },
+    {
+      "holeNumber": 8,
+      "distance": 335,
+      "par": 4,
+      "handicap": 11
+    },
+    {
+      "holeNumber": 9,
+      "distance": 368,
+      "par": 4,
+      "handicap": 9
+    },
+    {
+      "holeNumber": 10,
+      "distance": 499,
+      "par": 5,
+      "handicap": 12
+    },
+    {
+      "holeNumber": 11,
+      "distance": 387,
+      "par": 4,
+      "handicap": 6
+    },
+    {
+      "holeNumber": 12,
+      "distance": 298,
+      "par": 4,
+      "handicap": 14
+    },
+    {
+      "holeNumber": 13,
+      "distance": 327,
+      "par": 4,
+      "handicap": 16
+    },
+    {
+      "holeNumber": 14,
+      "distance": 168,
+      "par": 3,
+      "handicap": 18
+    },
+    {
+      "holeNumber": 15,
+      "distance": 433,
+      "par": 4,
+      "handicap": 2
+    },
+    {
+      "holeNumber": 16,
+      "distance": 505,
+      "par": 5,
+      "handicap": 8
+    },
+    {
+      "holeNumber": 17,
+      "distance": 180,
+      "par": 3,
+      "handicap": 10
+    },
+    {
+      "holeNumber": 18,
+      "distance": 413,
+      "par": 4,
+      "handicap": 4
+    }
+  ]
+}

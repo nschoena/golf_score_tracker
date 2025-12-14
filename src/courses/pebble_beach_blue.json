@@ -1,0 +1,121 @@
+{
+    "$schema": "./course.schema.json",
+    "courseName": "Pebble Beach Golf Links",
+    "tees": "Blue",
+    "courseSide": "Full",
+    "location": "Pebble Beach, CA",
+    "rating": 74.7,
+    "slope": 143,
+    "yardage": 6828,
+    "par": 72, 
+    "holes": [
+                {
+                    "holeNumber": 1,
+                    "distance": 377,
+                    "par": 4,
+                    "handicap": 8
+                },
+                {
+                    "holeNumber": 2,
+                    "distance": 511,
+                    "par": 5,
+                    "handicap": 10
+                },
+                {
+                    "holeNumber": 3,
+                    "distance": 390,
+                    "par": 4,
+                    "handicap": 12
+                },
+                {
+                    "holeNumber": 4,
+                    "distance": 326,
+                    "par": 4,
+                    "handicap": 16
+                },
+                {
+                    "holeNumber": 5,
+                    "distance": 192,
+                    "par": 3,
+                    "handicap": 14
+                },
+                {
+                    "holeNumber": 6,
+                    "distance": 506,
+                    "par": 5,
+                    "handicap": 2
+                },
+                {
+                    "holeNumber": 7,
+                    "distance": 106,
+                    "par": 3,
+                    "handicap": 18
+                },
+                {
+                    "holeNumber": 8,
+                    "distance": 427,
+                    "par": 4,
+                    "handicap": 6
+                },
+                {
+                    "holeNumber": 9,
+                    "distance": 481,
+                    "par": 4,
+                    "handicap": 4
+                },
+                {
+                    "holeNumber": 10,
+                    "distance": 446,
+                    "par": 4,
+                    "handicap": 7
+                },
+                {
+                    "holeNumber": 11,
+                    "distance": 373,
+                    "par": 4,
+                    "handicap": 5
+                },
+                {
+                    "holeNumber": 12,
+                    "distance": 201,
+                    "par": 3,
+                    "handicap": 17
+                },
+                {
+                    "holeNumber": 13,
+                    "distance": 403,
+                    "par": 4,
+                    "handicap": 9
+                },
+                {
+                    "holeNumber": 14,
+                    "distance": 572,
+                    "par": 5,
+                    "handicap": 1
+                },
+                {
+                    "holeNumber": 15,
+                    "distance": 396,
+                    "par": 4,
+                    "handicap": 13
+                },
+                {
+                    "holeNumber": 16,
+                    "distance": 401,
+                    "par": 4,
+                    "handicap": 11
+                },
+                {
+                    "holeNumber": 17,
+                    "distance": 177,
+                    "par": 3,
+                    "handicap": 15
+                },
+                {
+                    "holeNumber": 18,
+                    "distance": 543,
+                    "par": 5,
+                    "handicap": 3
+                }
+            ]
+}

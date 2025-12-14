@@ -1,0 +1,140 @@
+{
+    "$schema": "./score.schema.json",
+    "courseName": "Village Green Golf Course",
+    "courseSide": "All",
+    "tees": "White",
+    "date": "2025-10-04",
+    "score": 79,
+    "girPercentage": 56,
+    "teeAccuracy": [21.4, 43, 28.6],
+    "holesPlayed": [
+        {
+            "holeNumber": 1,
+            "strokes": 4,
+            "putts": 1,
+            "driveResult": "Missed Right", 
+            "gir": false 
+        },
+        {
+            "holeNumber": 2,
+            "strokes": 5,
+            "putts": 2,
+            "driveResult": "Hit Fairway",
+            "gir": false 
+        },
+        {
+            "holeNumber": 3,
+            "strokes": 5,
+            "putts": 2,
+            "driveResult": "Hit Fairway",
+            "gir": true 
+        },
+        {
+            "holeNumber": 4,
+            "strokes": 3,
+            "putts": 2,
+            "driveResult": "Par3TeeShot",
+            "gir": true 
+        },
+        {
+            "holeNumber": 5,
+            "strokes": 5,
+            "putts": 2,
+            "driveResult": "Missed Right",
+            "gir": true 
+        },
+        {
+            "holeNumber": 6,
+            "strokes": 2,
+            "putts": 0,
+            "driveResult": "Par3TeeShot",
+            "gir": false 
+        },
+        {
+            "holeNumber": 7,
+            "strokes": 6,
+            "putts": 1,
+            "driveResult": "Hit Fairway",
+            "gir": false 
+        },
+        {
+            "holeNumber": 8,
+            "strokes": 4,
+            "putts": 2,
+            "driveResult": "Missed Right",
+            "gir": true 
+        },
+        {
+            "holeNumber": 9,
+            "strokes": 5,
+            "putts": 2,
+            "driveResult": "Missed Left",
+            "gir": false 
+        },
+        {
+            "holeNumber": 10,
+            "strokes": 5,
+            "putts": 2,
+            "driveResult": "Missed Left",
+            "gir": true 
+        },
+        {
+            "holeNumber": 11,
+            "strokes": 5,
+            "putts": 3,
+            "driveResult": "Missed Right",
+            "gir": true 
+        },
+        {
+            "holeNumber": 12,
+            "strokes": 4,
+            "putts": 2,
+            "driveResult": "Missed Right",
+            "gir": true 
+        },
+        {
+            "holeNumber": 13,
+            "strokes": 6,
+            "putts": 1,
+            "driveResult": "Hit Fairway",
+            "gir": false 
+        },
+        {
+            "holeNumber": 14,
+            "strokes": 3,
+            "putts": 2,
+            "driveResult": "Par3TeeShot",
+            "gir": true 
+        },
+        {
+            "holeNumber": 15,
+            "strokes": 5,
+            "putts": 2,
+            "driveResult": "Missed Left",
+            "gir": false 
+        },
+        {
+            "holeNumber": 16,
+            "strokes": 4,
+            "putts": 3,
+            "driveResult": "Hit Fairway",
+            "gir": true 
+        },
+        {
+            "holeNumber": 17,
+            "strokes": 4,
+            "putts": 1,
+            "driveResult": "Par3TeeShot",
+            "gir": true 
+        },
+        {
+            "holeNumber": 18,
+            "strokes": 4,
+            "putts": 1,
+            "driveResult": "Hit Fairway",
+            "gir": false 
+        }
+        ]
+    
+
+}
