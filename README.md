@@ -54,6 +54,6 @@ Initially the application will run with a command line based menu system. Over t
 
 ## Data Model
 I will focus on utilizing `json` format. I will utilize schema.json files for the course and score data:
-- [course.schema.json](/src/courses/course.schema.json)
-- [score.schema.json](/src/scores/score.schema.json)
+- [course.schema.json](/src/golf_score_tracker/data/courses/course.schema.json)
+- [score.schema.json](/src/golf_score_tracker/data/scores/score.schema.json)
 
