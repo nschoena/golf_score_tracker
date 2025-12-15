@@ -5,6 +5,10 @@
   "description": "The schema for the course document I am designing.",
   "type": "object",
   "properties": {
+    "courseId": {
+        "type": "integer",
+        "description": "Unique number that will serve as primary key for the courses document database"
+    },
     "courseName": {
         "type": "string",
         "description": "The name of the golf course."    
@@ -19,7 +23,7 @@
         "enum": [
             "Front",
             "Back",
-            "Full"
+            "All"
         ]
     },
     "location": {
@@ -60,10 +64,11 @@
 
   },
   "required": [
+    "courseId",
     "courseName",
-    "location",
-    "courseSide",
     "tees",
+    "courseSide",
+    "location",    
     "rating",
     "slope",
     "par",
