@@ -1,5 +1,7 @@
-from typing import List
-from .hole import Hole
+from typing import List, TYPE_CHECKING
+# TYPE_CHECKING is used here for clean import in a real file structure
+if TYPE_CHECKING:
+    from .hole import Hole  # Assuming you split Hole into its own file
 
 """
 File: course.py
