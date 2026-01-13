@@ -1,8 +1,9 @@
 {
   "$schema": "./course.schema.json",
+  "courseId": 0,
   "courseName": "Hawley Golf & Country Club",
   "tees": "White",
-  "courseSide": "Full",
+  "courseSide": "All",
   "location": "Hawley, MN",
   "rating": 67.5,
   "slope": 120,
@@ -11,109 +12,109 @@
   "holes": [
     {
       "holeNumber": 1,
-      "distance": 303,
+      "yardage": 303,
       "par": 4,
       "handicap": 17
     },
     {
       "holeNumber": 2,
-      "distance": 171,
+      "yardage": 171,
       "par": 3,
       "handicap": 5
     },
     {
       "holeNumber": 3,
-      "distance": 388,
+      "yardage": 388,
       "par": 4,
       "handicap": 3
     },
     {
       "holeNumber": 4,
-      "distance": 303,
+      "yardage": 303,
       "par": 4,
       "handicap": 15
     },
     {
       "holeNumber": 5,
-      "distance": 493,
+      "yardage": 493,
       "par": 5,
       "handicap": 1
     },
     {
       "holeNumber": 6,
-      "distance": 314,
+      "yardage": 314,
       "par": 4,
       "handicap": 13
     },
     {
       "holeNumber": 7,
-      "distance": 355,
+      "yardage": 355,
       "par": 4,
       "handicap": 11
     },
     {
       "holeNumber": 8,
-      "distance": 180,
+      "yardage": 180,
       "par": 3,
       "handicap": 7
     },
     {
       "holeNumber": 9,
-      "distance": 503,
+      "yardage": 503,
       "par": 5,
       "handicap": 9
     },
     {
       "holeNumber": 10,
-      "distance": 164,
+      "yardage": 164,
       "par": 3,
       "handicap": 6
     },
     {
       "holeNumber": 11,
-      "distance": 277,
+      "yardage": 277,
       "par": 4,
       "handicap": 18
     },
     {
       "holeNumber": 12,
-      "distance": 353,
+      "yardage": 353,
       "par": 4,
       "handicap": 2
     },
     {
       "holeNumber": 13,
-      "distance": 134,
+      "yardage": 134,
       "par": 3,
       "handicap": 16
     },
     {
       "holeNumber": 14,
-      "distance": 496,
+      "yardage": 496,
       "par": 5,
       "handicap": 8
     },
     {
       "holeNumber": 15,
-      "distance": 362,
+      "yardage": 362,
       "par": 4,
       "handicap": 4
     },
     {
       "holeNumber": 16,
-      "distance": 176,
+      "yardage": 176,
       "par": 3,
       "handicap": 14
     },
     {
       "holeNumber": 17,
-      "distance": 471,
+      "yardage": 471,
       "par": 5,
       "handicap": 10
     },
     {
       "holeNumber": 18,
-      "distance": 330,
+      "yardage": 330,
       "par": 4,
       "handicap": 12
     }

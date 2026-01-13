@@ -55,7 +55,7 @@
             "type": "object",
             "properties": {
                 "holeNumber": {"type": "integer"},
-                "distance": {"type": "integer"},
+                "yardage": {"type": "integer"},
                 "par": {"type": "integer"},
                 "handicap": {"type": "integer"}                
             }

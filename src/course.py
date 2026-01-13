@@ -1,7 +1,10 @@
+import json
+from pathlib import Path
 from typing import List, TYPE_CHECKING
+from hole import Hole
 # TYPE_CHECKING is used here for clean import in a real file structure
-if TYPE_CHECKING:
-    from .hole import Hole  # Assuming you split Hole into its own file
+# if TYPE_CHECKING:
+#     from .hole import Hole  # Assuming you split Hole into its own file
 
 """
 File: course.py
@@ -55,6 +58,13 @@ class Course:
 
         # Set holes to private variable
         self._holes = holes    
+
+    def __str__(self) -> str:
+        """Print a human-readable summary of the course"""
+        return (
+            f"{self.course_name.title()} is a Par {self.par} course in "
+            f"{self.location} and is {self.yardage} yards long."
+        )
 
     @property
     def course_name(self) -> str:
@@ -150,10 +160,84 @@ class Course:
 
     @property
     def yardage(self) -> int:
-        """Calculates the total yardage based on distance in the holes array"""
-        return sum(hole.distance for hole in self.holes)
+        """Calculates the total yardage based on yardage in the holes array"""
+        return sum(hole.yardage for hole in self._holes)
     
     @property
     def par(self) -> int:
         """Calculates the total par based on par in the holes array"""
-        return sum(hole.par for hole in self.holes)
+        return sum(hole.par for hole in self._holes)
+    
+    @classmethod
+    def load_from_json(cls, filepath: str | Path):
+        """Reads a JSON file and returns a new Course instance"""
+        # Load the course data json file and deserialize into raw_data
+        with open(filepath, 'r') as file:
+            raw_data = json.load(file)
+
+        # Create empty array to store hole objects
+        hole_objects = []
+
+        # iterate through the hole info in the dictionary and create a hole
+        # object. On each loop, append the newly created hole to the 
+        # hole_objects array.
+        for hole_dict in raw_data['holes']:
+            # 1. Create a Hole instance 'h' by passing in data from hole_dict
+            h = Hole(
+                hole_number=hole_dict['holeNumber'],
+                yardage=hole_dict['yardage'],
+                par=hole_dict['par'],
+                handicap=hole_dict['handicap']                
+            )            
+            # 2. Append 'h' to the hole_objects list
+            hole_objects.append(h)
+
+        # assign the courseId property. Eventually this will be an identity 
+        # field that will read the highest courseId from the database and 
+        # increment by one
+        course_id = raw_data['courseId']
+
+        # assign the courseName property
+        course_name = raw_data['courseName']
+
+        # assign the tees property
+        tees = raw_data['tees']
+
+        # assign the courseSide property
+        course_side = raw_data['courseSide']
+
+        # assign the location property
+        location = raw_data['location']
+
+        # assign the rating property
+        rating = raw_data['rating']
+
+        # assign the slope property
+        slope = raw_data['slope']
+
+        # assign the yardage property. This is calculated based on the sum of
+        # the yardages in the hole_objects array.
+        yardage = 0
+        for hole in hole_objects:
+            yardage += hole.yardage
+
+        # assign the par property. This is calculated based on the sum of
+        # the par in the hole_objects array.
+        par = 0
+        for hole in hole_objects:
+            par += hole.par
+
+        # return the course class object
+        # note:  that yardage and par are currently not part of the class but 
+        # will be calculated when retrieved.
+        
+        return cls(
+            course_id=course_id,
+            course_name=course_name,
+            tees=tees,
+            course_side=course_side,
+            location=location,
+            rating=rating,
+            slope=slope,
+            holes=hole_objects
+        )
