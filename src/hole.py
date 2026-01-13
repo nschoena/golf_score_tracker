@@ -10,21 +10,21 @@ class Hole:
     The Hole class will represent a hole as observed on a golf course or on a
     scorecard.
     """
-    def __init__(self, hole_number: int, distance: int, par: int, 
+    def __init__(self, hole_number: int, yardage: int, par: int, 
                  handicap: int):
         """
         Initializes a Hole object representing a hole in the Course object.
         
         :param hole_number: Hole number on the course. This is unique and must 
                             be between 1-18.
-        :param distance: Distance in yards for this hole.
+        :param yardage: yardage in yards for this hole.
         :param par: The strokes required (or less than) to be considered par for 
                     the hole.
         :param handicap: The handicap rating for the hole indicating difficulty.
                          The lower the number, the harder the hole.
         """
         self.hole_number = hole_number # Calls the setter
-        self.distance = distance # Calls the setter
+        self.yardage = yardage # Calls the setter
         self.par = par # Calls the setter
         self.handicap = handicap # Calls the setter
 
@@ -48,23 +48,23 @@ class Hole:
         self._hole_number = int(value)
 
     @property
-    def distance(self) -> int:
-        return self._distance
+    def yardage(self) -> int:
+        return self._yardage
     
-    @distance.setter
-    def distance(self, value: int):
-        """setter for distance, validating it is between 3-6"""
+    @yardage.setter
+    def yardage(self, value: int):
+        """setter for yardage, validating it is between 3-6"""
         if not isinstance(value, (int, float)):
-            raise TypeError(f"Distance must be an integer, received {type(value).__name__}.")
+            raise TypeError(f"yardage must be an integer, received {type(value).__name__}.")
         
         # Validation Logic
-        MIN_DISTANCE = 50
-        MAX_DISTANCE = 700
-        if not (MIN_DISTANCE <= value <= MAX_DISTANCE):
-            raise ValueError(f"Distance must be between {MIN_DISTANCE} and {MAX_DISTANCE}. Received: {value}")
+        MIN_yardage = 50
+        MAX_yardage = 700
+        if not (MIN_yardage <= value <= MAX_yardage):
+            raise ValueError(f"yardage must be between {MIN_yardage} and {MAX_yardage}. Received: {value}")
         
         # Store the validated value in the internal variable
-        self._distance = int(value)
+        self._yardage = int(value)
         
     @property
     def par(self) -> int:
