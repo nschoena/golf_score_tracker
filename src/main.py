@@ -23,9 +23,11 @@ COURSE_BASE_PATH = Path(__file__).resolve().parent.parent / "data" / "courses"
 # define the path to the course json file to load
 file_to_load = COURSE_BASE_PATH / "hawley_white.json"
 hawley_white = C.load_from_json(file_to_load)
+
 # print(f"The total yardage for Hawley Golf Course White Tees is " 
     #   f"{hawley_white.yardage}")
-print(hawley_white)
+# print(hawley_white)
+hawley_white.display_course_info()
 
 # --- Script Execution Block ---
 if __name__ == "__main__":

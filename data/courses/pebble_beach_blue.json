@@ -1,8 +1,9 @@
 {
     "$schema": "./course.schema.json",
+    "courseId": 1,
     "courseName": "Pebble Beach Golf Links",
     "tees": "Blue",
-    "courseSide": "Full",
+    "courseSide": "All",
     "location": "Pebble Beach, CA",
     "rating": 74.7,
     "slope": 143,

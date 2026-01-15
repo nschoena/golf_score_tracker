@@ -241,3 +241,123 @@ class Course:
             slope=slope,
             holes=hole_objects
         )
+    
+    def display_course_info(self):
+        """Display course info to the command line in a scorecard-like format"""
+        
+        # # print course information header
+        # print("-" * 100)
+        # print(f"{self.course_name}")
+        # print(f"{self.location}")
+        # print(f"Rating: {self.rating}")
+        # print(f"{'Slope':7} {self.slope}")
+        # print("-" * 100)
+
+        # # print the hole info, one hole per column
+        # print(f"{'HOLE':8}", end=" |")
+        # for hole in self._holes:
+        #     print(f"{hole.hole_number:4}", end="|")
+        
+        # # print the yardages to indicate tee and then yards for each hole
+        # print(f"\n{self.tees.upper():8}", end=" |")
+        # for hole in self._holes:
+        #     print(f"{hole.yardage:4}", end="|")
+
+        # # print the handicaps for each hole
+        # print(f"\n{'HCP':8}", end=" |")
+        # for hole in self._holes:
+        #     print(f"{hole.handicap:4}", end="|")
+
+        # # print the par for each hole
+        # print(f"\n{'PAR':8}", end=" |")
+        # for hole in self._holes:
+        #     print(f"{hole.par:4}", end="|")
+
+        # # end of scorecard
+        # print(f"\n{'-' * 100}")
+
+        #
+        # now let's try to do this in the Pythonic way that will include 
+        # OUT, IN, TOT
+        #
+        front_nine = self._holes[:9]
+        back_nine = self._holes[9:18]
+        
+        # print course information header
+        
+        # Calculate total width of separator line
+        # (Label + Pipe) + (9 holes * 5) + (OUT + pipe) + (9 holes * 5) + 
+        # (IN + pipe) + (TOT + pipe)
+        label_width = 10
+        hole_block_width = (len(front_nine) * 5) + 7
+        total_width = label_width + (hole_block_width * 2) + 7
+
+        # Now use it whenever you need a line
+        print("-" * total_width)
+        print(f"{self.course_name}")
+        print(f"{self.location}")
+        print(f"Rating: {self.rating}")
+        print(f"{'Slope:':7} {self.slope}")
+        print("-" * total_width)
+
+        # print the Holes for first 9, OUT, back 9, IN, and TOT
+        print(f"{'HOLE':8}", end=" |")
+
+        for hole in front_nine:
+            print(f"{hole.hole_number:4}", end="|")
+
+        print(f"{'OUT':^5}", end=" |")
+
+        for hole in back_nine:
+            print(f"{hole.hole_number:4}", end="|")
+
+        print(f"{'IN':^5}", end=" |")
+        print(f"{'TOT':^5}", end=" |")
+        print()  
+        
+        # print the Yardages (with tee color)
+        print(f"{self.tees:8}", end=" |")
+
+        for hole in front_nine:
+            print(f"{hole.yardage:4}", end="|")
+
+        print(f"{sum(hole.yardage for hole in front_nine):5}", end=" |")
+
+        for hole in back_nine:
+            print(f"{hole.yardage:4}", end="|")
+
+        print(f"{sum(hole.yardage for hole in back_nine):5}", end=" |")
+        print(f"{sum(hole.yardage for hole in self._holes):5}", end=" |")
+        print()  
+
+        # print the Handicap
+        print(f"{'HCP':8}", end=" |")
+
+        for hole in front_nine:
+            print(f"{hole.handicap:4}", end="|")
+
+        print(f"{"":5}", end=" |")
+
+        for hole in back_nine:
+            print(f"{hole.handicap:4}", end="|")
+
+        print(f"{"":5}", end=" |")
+        print(f"{"":5}", end=" |")
+        print()  
+
+        # print the par for first 9, OUT, back 9, IN, and TOT
+        print(f"{'PAR':8}", end=" |")
+
+        for hole in front_nine:
+            print(f"{hole.par:4}", end="|")
+
+        print(f"{sum(hole.par for hole in front_nine):5}", end=" |")
+
+        for hole in back_nine:
+            print(f"{hole.par:4}", end="|")
+
+        print(f"{sum(hole.par for hole in back_nine):5}", end=" |")
+        print(f"{sum(hole.par for hole in self._holes):5}", end=" |")
+        print()  
+        print("-" * total_width)
+        
