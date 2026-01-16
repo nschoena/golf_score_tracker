@@ -5,6 +5,14 @@
   "description": "The schema for the score document I am designing.",
   "type": "object",
   "properties": {
+    "scoreId": {
+        "type": "integer",
+        "description": "Unique number that will serve as primary key for the courses document database"
+    },
+    "courseId": {
+        "type": "integer",
+        "description": "The course ID for the course played."
+    },
     "courseName": {
         "type": "string",
         "description": "The name of the golf course you played."    
@@ -22,16 +30,16 @@
         "type": "string",
         "description": "Name of tees that were played."
     },
-    "date": {
+    "datePlayed": {
         "type": "string",
         "description": "The date the round was played in YYYY-MM-DD.",
         "format": "date"
     },
-    "score": {
+    "roundScore": {
         "type": "integer",
         "description": "Total score. This could be calculated from the holesPlayed."
     },
-    "girPercentage": {
+    "girPercent": {
         "type": "number",
         "description": "Percentage of greens hit in regulation. This can be calculated from holesPlayed."
     },
@@ -63,14 +71,14 @@
                     "type": "integer",
                     "description": "Total number of putts for this hole."
                 },
-                "driveResult": {
+                "drive": {
                     "type": "string",
-                    "description": "Result of your drive, Par3TeeShot if par 3",
+                    "description": "Result of your drive, PAR3 if par 3",
                     "enum": [
-                        "Missed Left",
-                        "Hit Fairway",
-                        "Missed Right",
-                        "Par3TeeShot"
+                        "LEFT",
+                        "FAIRWAY",
+                        "RIGHT",
+                        "PAR3"
                     ]
                 },
                 "gir": {

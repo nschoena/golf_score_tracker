@@ -1,0 +1,8 @@
+This file is a way to track the course ids that I've manually assigned the 
+courses in this folder. Eventually, the courses will be stored in a database. 
+At that point, I will not manually assign these ids and instead do a lookup to
+the database and use the next available id.
+
+CourseId    Course file name
+0           village_green_white.json
+1           pebble_beach_blue.json
