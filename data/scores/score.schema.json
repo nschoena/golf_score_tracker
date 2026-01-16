@@ -97,8 +97,8 @@
     "courseName",
     "courseSide",
     "tees",
-    "date",
-    "score",
+    "datePlayed",
+    "roundScore",
     "holesPlayed"
   ]
 }
