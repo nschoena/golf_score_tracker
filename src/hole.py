@@ -58,10 +58,10 @@ class Hole:
             raise TypeError(f"yardage must be an integer, received {type(value).__name__}.")
         
         # Validation Logic
-        MIN_yardage = 50
-        MAX_yardage = 700
-        if not (MIN_yardage <= value <= MAX_yardage):
-            raise ValueError(f"yardage must be between {MIN_yardage} and {MAX_yardage}. Received: {value}")
+        MIN_YARDAGE = 50
+        MAX_YARDAGE = 700
+        if not (MIN_YARDAGE <= value <= MAX_YARDAGE):
+            raise ValueError(f"yardage must be between {MIN_YARDAGE} and {MAX_YARDAGE}. Received: {value}")
         
         # Store the validated value in the internal variable
         self._yardage = int(value)

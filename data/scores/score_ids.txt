@@ -1,0 +1,7 @@
+This file is a way to track the score ids that I've manually assigned the 
+scores in this folder. Eventually, the scores will be stored in a database. 
+At that point, I will not manually assign these ids and instead do a lookup to
+the database and use the next available id.
+
+ScoreId     Score file name
+0           20251004_village_green_white.json

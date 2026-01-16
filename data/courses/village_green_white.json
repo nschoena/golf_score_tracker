@@ -1,5 +1,6 @@
 {
   "$schema": "./course.schema.json",
+  "courseId": 0,
   "courseName": "Village Green Golf Course",
   "tees": "White",
   "courseSide": "All",

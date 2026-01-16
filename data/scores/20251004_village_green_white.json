@@ -1,137 +1,139 @@
 {
     "$schema": "./score.schema.json",
+    "scoreId": 0,
+    "courseId": 0,
     "courseName": "Village Green Golf Course",
-    "courseSide": "All",
     "tees": "White",
-    "date": "2025-10-04",
-    "score": 79,
-    "girPercentage": 56,
+    "courseSide": "All",
+    "datePlayed": "2025-10-04",
+    "roundScore": 79,
+    "girPercent": 56,
     "teeAccuracy": [21.4, 43, 28.6],
     "holesPlayed": [
         {
             "holeNumber": 1,
             "strokes": 4,
             "putts": 1,
-            "driveResult": "Missed Right", 
+            "driveResult": "Right", 
             "gir": false 
         },
         {
             "holeNumber": 2,
             "strokes": 5,
             "putts": 2,
-            "driveResult": "Hit Fairway",
+            "driveResult": "Fairway",
             "gir": false 
         },
         {
             "holeNumber": 3,
             "strokes": 5,
             "putts": 2,
-            "driveResult": "Hit Fairway",
+            "driveResult": "Fairway",
             "gir": true 
         },
         {
             "holeNumber": 4,
             "strokes": 3,
             "putts": 2,
-            "driveResult": "Par3TeeShot",
+            "driveResult": "Par3",
             "gir": true 
         },
         {
             "holeNumber": 5,
             "strokes": 5,
             "putts": 2,
-            "driveResult": "Missed Right",
+            "driveResult": "Right",
             "gir": true 
         },
         {
             "holeNumber": 6,
             "strokes": 2,
             "putts": 0,
-            "driveResult": "Par3TeeShot",
+            "driveResult": "Par3",
             "gir": false 
         },
         {
             "holeNumber": 7,
             "strokes": 6,
             "putts": 1,
-            "driveResult": "Hit Fairway",
+            "driveResult": "Fairway",
             "gir": false 
         },
         {
             "holeNumber": 8,
             "strokes": 4,
             "putts": 2,
-            "driveResult": "Missed Right",
+            "driveResult": "Right",
             "gir": true 
         },
         {
             "holeNumber": 9,
             "strokes": 5,
             "putts": 2,
-            "driveResult": "Missed Left",
+            "driveResult": "Left",
             "gir": false 
         },
         {
             "holeNumber": 10,
             "strokes": 5,
             "putts": 2,
-            "driveResult": "Missed Left",
+            "driveResult": "Left",
             "gir": true 
         },
         {
             "holeNumber": 11,
             "strokes": 5,
             "putts": 3,
-            "driveResult": "Missed Right",
+            "driveResult": "Right",
             "gir": true 
         },
         {
             "holeNumber": 12,
             "strokes": 4,
             "putts": 2,
-            "driveResult": "Missed Right",
+            "driveResult": "Right",
             "gir": true 
         },
         {
             "holeNumber": 13,
             "strokes": 6,
             "putts": 1,
-            "driveResult": "Hit Fairway",
+            "driveResult": "Fairway",
             "gir": false 
         },
         {
             "holeNumber": 14,
             "strokes": 3,
             "putts": 2,
-            "driveResult": "Par3TeeShot",
+            "driveResult": "Par3",
             "gir": true 
         },
         {
             "holeNumber": 15,
             "strokes": 5,
             "putts": 2,
-            "driveResult": "Missed Left",
+            "driveResult": "Left",
             "gir": false 
         },
         {
             "holeNumber": 16,
             "strokes": 4,
             "putts": 3,
-            "driveResult": "Hit Fairway",
+            "driveResult": "Fairway",
             "gir": true 
         },
         {
             "holeNumber": 17,
             "strokes": 4,
             "putts": 1,
-            "driveResult": "Par3TeeShot",
+            "driveResult": "Par3",
             "gir": true 
         },
         {
             "holeNumber": 18,
             "strokes": 4,
             "putts": 1,
-            "driveResult": "Hit Fairway",
+            "driveResult": "Fairway",
             "gir": false 
         }
         ]
