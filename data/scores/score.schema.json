@@ -43,7 +43,7 @@
         "type": "number",
         "description": "Percentage of greens hit in regulation. This can be calculated from holesPlayed."
     },
-    "teeAccuracy": {
+    "driveAccuracy": {
         "type": "array",
         "description": "Percentage breakdown of tee shot accuracy (Missed Left, Hit Fairway, Missed Right). This can be calculated from holesPlayed.",
         "minItems": 3,

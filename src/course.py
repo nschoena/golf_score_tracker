@@ -67,6 +67,28 @@ class Course:
         )
 
     @property
+    def course_id(self) -> int:
+        return self._course_id
+    
+    @course_id.setter
+    def course_id(self, value: int):
+        """Setter for course_id. Eventually this will be a lookup to the course
+            database and incremented one from the max value currently 
+            stored."""
+        # Type check
+        if not isinstance(value, (int, float)):
+            raise TypeError(f"ScoreID must be a integer, received: "
+                            f"{type(value).__name__}.")
+        
+        # Validation logic                    
+        if value < 0:
+            raise ValueError(f"CourseID must be a positive integer, " 
+                                f"received: {value}")
+        
+        # Store the validated value in the internal variable
+        self._course_id = int(value)
+    
+    @property
     def course_name(self) -> str:
         return self._course_name
     
