@@ -1,6 +1,7 @@
 import sys
 from course import Course as C
 from pathlib import Path
+from datetime import date, datetime
 
 """
 Main entry point for the Golf Score Tracker application
