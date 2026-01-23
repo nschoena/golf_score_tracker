@@ -54,10 +54,8 @@ class Course:
         self.course_side = course_side
         self.location = location
         self.rating = rating
-        self.slope = slope
-
-        # Set holes to private variable
-        self._holes = holes    
+        self.slope = slope        
+        self.holes = holes    
 
     def __str__(self) -> str:
         """Print a human-readable summary of the course"""
@@ -113,6 +111,30 @@ class Course:
         self._course_name = stripped_value
 
     @property
+    def tees(self) -> str:
+        return self._tees
+    
+    @tees.setter
+    def tees(self, value:str):
+        """setter for tees. Type validation required. Validates it's a string 
+        and at least 2 characters long"""
+        # Type check
+        if not isinstance(value, (str)):
+            raise TypeError(f"Tees must be a string, received: "
+                            f"{type(value).__name__}.")
+        # Strip the white space
+        stripped_value = value.strip()
+
+        # Validation Logic. String must be at least 3 characters long
+        MIN_LENGTH = 2
+        if len(stripped_value) < MIN_LENGTH:
+            raise ValueError(f"Tees name must be at least {MIN_LENGTH} "
+                             f"characters long. Received: {value}.")
+        
+        # Store the validated, stripped value
+        self._tees = stripped_value
+
+    @property
     def course_side(self) -> str:
         return self._course_side
 
@@ -136,7 +158,6 @@ class Course:
         
         # Store the validated value in the internal variable
         self._course_side = str(value)
-
 
     @property
     def slope(self) -> int:
@@ -181,6 +202,29 @@ class Course:
         self._rating = float(value)
 
     @property
+    def holes(self) -> List[Hole]:
+        return self._holes
+    
+    @holes.setter
+    def holes(self, value: List[Hole]):
+        """Setter for holes array. Validate that all the objects passed are
+        actually objects of Hole class."""
+        # Type check to make sure holes is actually a list
+        if not isinstance(value, List):
+            raise TypeError(f"holes parameter must be a list. Received: "
+                            f"{type(value).__name__}.")
+        
+        # Type check to make sure all objects in list are of Hole type
+        for h in value:
+            if not isinstance(h, Hole):
+                raise TypeError(f"elements in holes list must be of hole type. "
+                                f"Received {type(h).__name__}.")
+
+        # Store the validated list in the internal variable
+        self._holes = value
+
+    # Calculated properties
+    @property
     def yardage(self) -> int:
         """Calculates the total yardage based on yardage in the holes array"""
         return sum(hole.yardage for hole in self._holes)
@@ -190,6 +234,7 @@ class Course:
         """Calculates the total par based on par in the holes array"""
         return sum(hole.par for hole in self._holes)
     
+    # Class methods
     @classmethod
     def load_from_json(cls, filepath: str | Path):
         """Reads a JSON file and returns a new Course instance"""
