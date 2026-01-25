@@ -63,7 +63,7 @@ class Score:
     #
     # properties and setters
     #
-       
+    
     @property
     def score_id(self) -> int:
         return self._score_id
@@ -243,11 +243,143 @@ class Score:
                             f"{type(value).__name__}.")
         
         # Type check to make sure all objects in list are of Hole type
-        for h in value:
-            if not isinstance(h, ScoreHole):
+        for sh in value:
+            if not isinstance(sh, ScoreHole):
                 raise TypeError(f"elements in holes_played list must be of "
                                 f"ScoreHole type. "
-                                f"Received {type(h).__name__}.")
+                                f"Received {type(sh).__name__}.")
 
         # Store the validated list in the internal variable
         self._holes_played = value
+
+    #
+    # assign calculated properties
+    #
+    
+    # is_detailed - to indicate if the scoreHole objects are all detailed. If 
+    # even one hole is not detailed, the entire score should be considered not
+    # detailed
+    @property
+    def is_detailed(self) -> bool:
+        return all(sh.is_detailed for sh in self.holes_played)
+
+    # round_score
+    @property
+    def round_score(self) -> int:
+        """calculates total strokes"""
+        return sum(sh.strokes for sh in self.holes_played)
+    
+    # round_putts
+    @property
+    def round_putts(self) -> int | None:
+        """calculates total putts. Check if the score is detailed and return
+        None if it is"""
+        if not self.is_detailed:
+            return None        
+        
+        return sum(sh.putts or 0 for sh in self.holes_played)
+    
+    # gir_percent
+    @property
+    def gir_percent(self) -> float | None:
+        """Calculates green in regulation percentage. Check if score is detailed 
+        and return None if it is"""
+        if not self.is_detailed:
+            return None
+        
+        # sum() treats True as 1, False as 0
+        girs = sum(1 for sh in self.holes_played if sh.gir)
+        
+        return (girs / len(self.holes_played) * 100)
+
+    @property
+    def drive_accuracy(self) -> List[float] | None:
+        """returns a 3-member list of float values for driving accuracy in
+        order of LEFT, FAIRWAY, RIGHT"""
+        if not self.is_detailed:
+            return None
+
+        total_drives = 0
+        left, fairway, right = 0, 0, 0
+        
+        for sh in self.holes_played:
+            # Use 'or' to provide a fallback string for Intellisense
+            res = (sh.drive or "").upper()
+            
+            if res == 'Par3': 
+                continue
+            total_drives += 1
+            if res == 'LEFT':
+                left += 1
+            elif res == 'FAIRWAY':                
+                fairway += 1
+            elif res == 'RIGHT':                
+                right_drives += 1
+        
+        # Guard against division by zero (could be all par3 course)
+        if total_drives == 0:
+            return [0.0, 0.0, 0.0]
+
+        return [left / total_drives, fairway / total_drives, right / total_drives]
+    
+    #
+    # Class methods
+    #
+    @classmethod
+    def load_from_json(cls, filepath: str | Path):
+        """Reads a JSON file and returns a new Score instance"""
+        # Load the score data json file and deserialize into raw_data
+        with open(filepath, 'r') as file:
+            raw_data = json.load(file)
+
+        # Create empty array to store ScoreHole objects
+        score_holes_played = []
+
+        # iterate through the hole info in the dictionary and create a hole
+        # object. On each loop, append the newly created hole to the 
+        # hole_objects array.
+        for hole_dict in raw_data['holesPlayed']:
+            # Create a ScoreHole instance 'sh' by passing in data from hole_dict
+            sh = ScoreHole(
+                hole_number=hole_dict['holeNumber'],
+                strokes=hole_dict['strokes'],
+                putts=hole_dict['putts'],
+                drive=hole_dict['driveResult'],
+                gir=hole_dict['gir']                
+            )
+            # Append ScoreHole instance sh to score_hole_objects array
+            score_holes_played.append(sh)
+        
+        # assign the remaining properties
+        # score_id
+        score_id = raw_data['scoreId']
+
+        # course_id
+        course_id = raw_data['courseId']
+
+        # course_name
+        course_name = raw_data['courseName']
+
+        # tees
+        tees = raw_data['tees']
+
+        # course_side
+        course_side = raw_data['courseSide']
+
+        # date_played
+        date_played = raw_data['datePlayed']        
+
+        # return the class object
+        return cls(
+            score_id=score_id,
+            course_id=course_id,
+            course_name=course_name,
+            tees=tees,
+            course_side=course_side,
+            date_played=date_played,
+            holes_played=score_holes_played
+        )
+
+
+        
+        
