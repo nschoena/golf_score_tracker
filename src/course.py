@@ -57,6 +57,7 @@ class Course:
         self.slope = slope        
         self.holes = holes    
 
+    # Used for testing before the display function is written
     def __str__(self) -> str:
         """Print a human-readable summary of the course"""
         return (

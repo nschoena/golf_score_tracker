@@ -42,7 +42,20 @@ class ScoreHole:
         self.drive = drive
         self.gir = gir
 
-
+    # Inside ScoreHole class
+    def __str__(self) -> str:
+        """Returns a readable string for a single hole's performance"""
+        base = f"Hole {self.hole_number}: {self.strokes} strokes"
+        
+        # Add details only if they exist
+        if self.is_detailed:
+            gir = "GIR" if self.gir else "No GIR"
+            details = f" ({self.putts} putts, {self.drive} drive), {gir}." 
+        else:
+            details = ""
+        
+        return base + details
+    
     @property
     def is_detailed(self) -> bool:
         """Returns true if all Detailed properties are included"""
@@ -52,8 +65,8 @@ class ScoreHole:
             self.gir is not None
         ))
 
-    # Notice: no setter is required here because it doesn't change the state
-    # of the object.
+    # Notice: no setter is required for is_detailed because it doesn't change 
+    # the state of the object.
 
     @property
     def hole_number(self) -> int:
@@ -91,8 +104,11 @@ class ScoreHole:
         if not (MIN_STROKE_NUMBER <= value <= MAX_STROKE_NUMBER):
             raise ValueError(f"Strokes must be between {MIN_STROKE_NUMBER} and {MAX_STROKE_NUMBER}. Received: {value}")
         
-        # make sure strokes is greater than putts
-        if self.putts is not None and value <= self.putts:
+        # Make sure strokes is greater than putts
+        # Because strokes is set before putts, I need to handle the situation
+        # where putts hasn't been set yet
+        current_putts = getattr(self, '_putts', None)
+        if current_putts is not None and value <= current_putts:
             raise ValueError(f"Strokes must be greater than putts. Putts is {self.putts} and you entered: {value}")
 
         # Store the validated value in the internal variable
@@ -118,8 +134,12 @@ class ScoreHole:
         MIN_PUTTS_NUMBER = 0
         MAX_PUTTS_NUMBER = 10
 
-        if self.strokes and value >= self.strokes:
-            raise ValueError(f"Number of putts is more than number of strokes. Strokes is {self.strokes} and you tried entering {value}.")
+        # Make sure putts is less than strokes
+        # Because putts could be set before strokes, I need to handle the 
+        # situation where strokes hasn't been set yet.
+        current_strokes = getattr(self, '_strokes', None)
+        if current_strokes is not None and value >= current_strokes:
+            raise ValueError(f"Putts must be less than strokes. Strokes is {self.strokes} and you tried entering {value}.")
 
         if not MIN_PUTTS_NUMBER <= value <= MAX_PUTTS_NUMBER:
             raise ValueError(f"Putts must be between {MIN_PUTTS_NUMBER} and {MAX_PUTTS_NUMBER}. Received: {value}")
