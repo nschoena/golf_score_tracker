@@ -59,7 +59,17 @@ class Score:
         self.tees = tees
         self.course_side = course_side
         self.date_played = date_played
+        self.holes_played = holes_played
 
+    # Used for testing before the display function is written
+    def __str__(self) -> str:
+        """Print a human-readable summary of the score"""
+        # Use a ternary operator to indicate if the score is detailed or not
+        score_type = "detailed" if self.is_detailed else "not detailed"
+        return (
+            f"This score was recorded at {self.course_name.title()} on "
+            f"{self.date_played}.\nThe score was {score_type.title()}."            
+        )
     #
     # properties and setters
     #
@@ -314,7 +324,7 @@ class Score:
             elif res == 'FAIRWAY':                
                 fairway += 1
             elif res == 'RIGHT':                
-                right_drives += 1
+                right += 1
         
         # Guard against division by zero (could be all par3 course)
         if total_drives == 0:
