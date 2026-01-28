@@ -310,40 +310,120 @@ class Course:
             holes=hole_objects
         )
     
-    def display_course_info(self):
-        """Display course info to the command line in a scorecard-like format"""
+    def display_course_header(self):
+        """Displays course header info for the scorecard"""
+        LABEL_WIDTH = 10
+        COL_WIDTH = 5
+        SUMMARY_WIDTH = 7
+        TOTAL_WIDTH = LABEL_WIDTH + (18 * COL_WIDTH) + (3 * SUMMARY_WIDTH)
+        print("-" * TOTAL_WIDTH)
+    
+    def display_course_hole_number(self):
+        """Display the hole numbers"""
+        # Set the column width to use in the display
+        LABEL_WIDTH = 9
+        COL_WIDTH = 4
+        SUMMARY_WIDTH = 5
         
-        # # print course information header
-        # print("-" * 100)
-        # print(f"{self.course_name}")
-        # print(f"{self.location}")
-        # print(f"Rating: {self.rating}")
-        # print(f"{'Slope':7} {self.slope}")
-        # print("-" * 100)
+        # Define front_nine, back_nine because I need to break them up to 
+        # display OUT/IN/TOT
+        front_nine = self._holes[:9]
+        back_nine = self._holes[9:18]
 
-        # # print the hole info, one hole per column
-        # print(f"{'HOLE':8}", end=" |")
-        # for hole in self._holes:
-        #     print(f"{hole.hole_number:4}", end="|")
+        # print the Holes for first 9, OUT, back 9, IN, and TOT
+        print(f"{'HOLE':{LABEL_WIDTH}}", end="|")
+
+        for hole in front_nine:
+            print(f"{hole.hole_number:{COL_WIDTH}}", end="|")
+
+        print(f"{'OUT':>{SUMMARY_WIDTH}} ", end="|")
+
+        for hole in back_nine:
+            print(f"{hole.hole_number:{COL_WIDTH}}", end="|")
+
+
+        print(f"{'IN':>{SUMMARY_WIDTH}} ", end="|")
+        print(f"{'TOT':>{SUMMARY_WIDTH}} ", end="|")  
+
+    def display_course_yardage(self):
+        """Display yardage"""
+        # Set the column width to use in the display
+        LABEL_WIDTH = 9
+        COL_WIDTH = 4
+        SUMMARY_WIDTH = 5
         
-        # # print the yardages to indicate tee and then yards for each hole
-        # print(f"\n{self.tees.upper():8}", end=" |")
-        # for hole in self._holes:
-        #     print(f"{hole.yardage:4}", end="|")
+        # Define front_nine, back_nine because I need to break them up to 
+        # display OUT/IN/TOT
+        front_nine = self._holes[:9]
+        back_nine = self._holes[9:18]
 
-        # # print the handicaps for each hole
-        # print(f"\n{'HCP':8}", end=" |")
-        # for hole in self._holes:
-        #     print(f"{hole.handicap:4}", end="|")
+        # print the yardages for first 9, OUT, back 9, IN, and TOT
+        print(f"{self.tees:<{LABEL_WIDTH}}", end="|")
 
-        # # print the par for each hole
-        # print(f"\n{'PAR':8}", end=" |")
-        # for hole in self._holes:
-        #     print(f"{hole.par:4}", end="|")
+        for hole in front_nine:
+            print(f"{hole.yardage:{COL_WIDTH}}", end="|")
 
-        # # end of scorecard
-        # print(f"\n{'-' * 100}")
+        print(f"{sum(hole.yardage for hole in front_nine):{SUMMARY_WIDTH}} ", end="|")
 
+        for hole in back_nine:
+            print(f"{hole.yardage:4}", end="|")
+
+        print(f"{sum(hole.yardage for hole in back_nine):{SUMMARY_WIDTH}} ", end="|")
+        print(f"{sum(hole.yardage for hole in self._holes):{SUMMARY_WIDTH}} ", end="|")
+
+    def display_course_HCP(self):
+        """Display HCP"""
+        # Set the column width to use in the display
+        LABEL_WIDTH = 9
+        COL_WIDTH = 4
+        SUMMARY_WIDTH = 6
+        
+        # Define front_nine, back_nine because I need to break them up to 
+        # display OUT/IN/TOT
+        front_nine = self._holes[:9]
+        back_nine = self._holes[9:18]
+
+        # print the HCPs for first 9, OUT, back 9, IN, and TOT
+        print(f"{'HCP':<{LABEL_WIDTH}}", end="|")
+
+        for hole in front_nine:
+            print(f"{hole.handicap:{COL_WIDTH}}", end="|")
+
+        print(f"{' ':{SUMMARY_WIDTH}}", end="|")
+
+        for hole in back_nine:
+            print(f"{hole.handicap:4}", end="|")
+
+        print(f"{' ':{SUMMARY_WIDTH}}", end="|")
+        print(f"{' ':{SUMMARY_WIDTH}}", end="|") 
+
+    def display_course_par(self):
+        """Display par for each hole and OUT/IN/TOT"""        
+        # Set the column width to use in the display
+        LABEL_WIDTH = 9
+        COL_WIDTH = 4
+        SUMMARY_WIDTH = 6
+        
+        # Define front_nine, back_nine because I need to break them up 
+        front_nine = self._holes[:9]
+        back_nine = self._holes[9:18]
+
+        # print the Par for first 9, OUT, back 9, IN, and TOT
+        print(f"{'PAR':<{LABEL_WIDTH}}", end="|")
+
+        for hole in front_nine:
+            print(f"{hole.par:{COL_WIDTH}}", end="|")
+
+        print(f"{sum(hole.par for hole in front_nine):>{SUMMARY_WIDTH - 1}} ", end="|")
+
+        for hole in back_nine:
+            print(f"{hole.par:4}", end="|")
+
+        print(f"{sum(hole.par for hole in back_nine):>{SUMMARY_WIDTH - 1}} ", end="|")
+        print(f"{sum(hole.par for hole in self._holes):>{SUMMARY_WIDTH - 1}} ", end="|") 
+
+    def display_course_info_old(self):
+        """Display course info to the command line in a scorecard-like format"""        
         #
         # now let's try to do this in the Pythonic way that will include 
         # OUT, IN, TOT
