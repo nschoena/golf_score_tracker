@@ -66,10 +66,19 @@ class Score:
         """Print a human-readable summary of the score"""
         # Use a ternary operator to indicate if the score is detailed or not
         score_type = "detailed" if self.is_detailed else "not detailed"
-        return (
-            f"This score was recorded at {self.course_name.title()} on "
-            f"{self.date_played}.\nThe score was {score_type.title()}."            
-        )
+        
+        # Start with the Header info (course, date, etc)
+        output = [f"Score was recorded at {self.course_name.title()} on "
+                  f"{self.date_played}.\nThe score was {score_type.title()}."]
+        
+        # Display scoreHole information by utilizing scoreHole's __str__ method 
+        for sh in self.holes_played:
+            output.append(str(sh))
+
+        # Use .join(output) to display all entries in the output array, 
+        # separated by a line break.
+        return "\n".join(output)
+    
     #
     # properties and setters
     #
