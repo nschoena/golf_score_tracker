@@ -285,15 +285,11 @@ class Course:
 
         # assign the yardage property. This is calculated based on the sum of
         # the yardages in the hole_objects array.
-        yardage = 0
-        for hole in hole_objects:
-            yardage += hole.yardage
+        yardage = sum(hole.yardage for hole in hole_objects)        
 
         # assign the par property. This is calculated based on the sum of
         # the par in the hole_objects array.
-        par = 0
-        for hole in hole_objects:
-            par += hole.par
+        par = sum(hole.par for hole in hole_objects) 
 
         # return the course class object
         # note:  that yardage and par are currently not part of the class but 
@@ -310,13 +306,25 @@ class Course:
             holes=hole_objects
         )
     
-    def display_course_header(self):
-        """Displays course header info for the scorecard"""
-        LABEL_WIDTH = 10
-        COL_WIDTH = 5
-        SUMMARY_WIDTH = 7
-        TOTAL_WIDTH = LABEL_WIDTH + (18 * COL_WIDTH) + (3 * SUMMARY_WIDTH)
+    def display_score_horizontal_lines(self):
+        """Display the hole numbers"""
+        # Set the column width to use in the display
+        LABEL_WIDTH = 9
+        COL_WIDTH = 4
+        SUMMARY_WIDTH = 5
+        TOTAL_WIDTH = (LABEL_WIDTH + 1) + (18 * (COL_WIDTH + 1)) + (3 * (SUMMARY_WIDTH + 2))
         print("-" * TOTAL_WIDTH)
+    
+    def display_course_header(self):
+        """Displays course header info for the scorecard"""        
+        self.display_score_horizontal_lines()
+        print(f"{self.course_name}")
+        print(f"{self.location}")
+        print(f"Rating: {self.rating}")
+        print(f"{'Slope:':7} {self.slope}")
+        print(f"Yardage: {self.yardage}")
+        print(f"Par: {self.par}")
+        self.display_score_horizontal_lines()
     
     def display_course_hole_number(self):
         """Display the hole numbers"""
@@ -371,7 +379,7 @@ class Course:
         print(f"{sum(hole.yardage for hole in back_nine):{SUMMARY_WIDTH}} ", end="|")
         print(f"{sum(hole.yardage for hole in self._holes):{SUMMARY_WIDTH}} ", end="|")
 
-    def display_course_HCP(self):
+    def display_course_hcp(self):
         """Display HCP"""
         # Set the column width to use in the display
         LABEL_WIDTH = 9
@@ -389,20 +397,20 @@ class Course:
         for hole in front_nine:
             print(f"{hole.handicap:{COL_WIDTH}}", end="|")
 
-        print(f"{' ':{SUMMARY_WIDTH}}", end="|")
+        print(f"{'':{SUMMARY_WIDTH}}", end="|")
 
         for hole in back_nine:
-            print(f"{hole.handicap:4}", end="|")
+            print(f"{hole.handicap:{COL_WIDTH}}", end="|")
 
-        print(f"{' ':{SUMMARY_WIDTH}}", end="|")
-        print(f"{' ':{SUMMARY_WIDTH}}", end="|") 
+        print(f"{'':{SUMMARY_WIDTH}}", end="|")
+        print(f"{'':{SUMMARY_WIDTH}}", end="|") 
 
     def display_course_par(self):
         """Display par for each hole and OUT/IN/TOT"""        
         # Set the column width to use in the display
         LABEL_WIDTH = 9
         COL_WIDTH = 4
-        SUMMARY_WIDTH = 6
+        SUMMARY_WIDTH = 5
         
         # Define front_nine, back_nine because I need to break them up 
         front_nine = self._holes[:9]
@@ -414,98 +422,23 @@ class Course:
         for hole in front_nine:
             print(f"{hole.par:{COL_WIDTH}}", end="|")
 
-        print(f"{sum(hole.par for hole in front_nine):>{SUMMARY_WIDTH - 1}} ", end="|")
+        print(f"{sum(hole.par for hole in front_nine):>{SUMMARY_WIDTH}} ", end="|")
 
         for hole in back_nine:
             print(f"{hole.par:4}", end="|")
 
-        print(f"{sum(hole.par for hole in back_nine):>{SUMMARY_WIDTH - 1}} ", end="|")
-        print(f"{sum(hole.par for hole in self._holes):>{SUMMARY_WIDTH - 1}} ", end="|") 
+        print(f"{sum(hole.par for hole in back_nine):>{SUMMARY_WIDTH}} ", end="|")
+        print(f"{sum(hole.par for hole in self._holes):>{SUMMARY_WIDTH}} ", end="|") 
 
-    def display_course_info_old(self):
-        """Display course info to the command line in a scorecard-like format"""        
-        #
-        # now let's try to do this in the Pythonic way that will include 
-        # OUT, IN, TOT
-        #
-        front_nine = self._holes[:9]
-        back_nine = self._holes[9:18]
-        
-        # print course information header
-        
-        # Calculate total width of separator line
-        # (Label + Pipe) + (9 holes * 5) + (OUT + pipe) + (9 holes * 5) + 
-        # (IN + pipe) + (TOT + pipe)
-        label_width = 10
-        hole_block_width = (len(front_nine) * 5) + 7
-        total_width = label_width + (hole_block_width * 2) + 7
-
-        # Now use it whenever you need a line
-        print("-" * total_width)
-        print(f"{self.course_name}")
-        print(f"{self.location}")
-        print(f"Rating: {self.rating}")
-        print(f"{'Slope:':7} {self.slope}")
-        print("-" * total_width)
-
-        # print the Holes for first 9, OUT, back 9, IN, and TOT
-        print(f"{'HOLE':8}", end=" |")
-
-        for hole in front_nine:
-            print(f"{hole.hole_number:4}", end="|")
-
-        print(f"{'OUT':^5}", end=" |")
-
-        for hole in back_nine:
-            print(f"{hole.hole_number:4}", end="|")
-
-        print(f"{'IN':^5}", end=" |")
-        print(f"{'TOT':^5}", end=" |")
-        print()  
-        
-        # print the Yardages (with tee color)
-        print(f"{self.tees:8}", end=" |")
-
-        for hole in front_nine:
-            print(f"{hole.yardage:4}", end="|")
-
-        print(f"{sum(hole.yardage for hole in front_nine):5}", end=" |")
-
-        for hole in back_nine:
-            print(f"{hole.yardage:4}", end="|")
-
-        print(f"{sum(hole.yardage for hole in back_nine):5}", end=" |")
-        print(f"{sum(hole.yardage for hole in self._holes):5}", end=" |")
-        print()  
-
-        # print the Handicap
-        print(f"{'HCP':8}", end=" |")
-
-        for hole in front_nine:
-            print(f"{hole.handicap:4}", end="|")
-
-        print(f"{"":5}", end=" |")
-
-        for hole in back_nine:
-            print(f"{hole.handicap:4}", end="|")
-
-        print(f"{"":5}", end=" |")
-        print(f"{"":5}", end=" |")
-        print()  
-
-        # print the par for first 9, OUT, back 9, IN, and TOT
-        print(f"{'PAR':8}", end=" |")
-
-        for hole in front_nine:
-            print(f"{hole.par:4}", end="|")
-
-        print(f"{sum(hole.par for hole in front_nine):5}", end=" |")
-
-        for hole in back_nine:
-            print(f"{hole.par:4}", end="|")
-
-        print(f"{sum(hole.par for hole in back_nine):5}", end=" |")
-        print(f"{sum(hole.par for hole in self._holes):5}", end=" |")
-        print()  
-        print("-" * total_width)
+    def display_course_info(self):
+        """Display course info to the command line in a scorecard-like format.
+        Call each method to display the entirety of the scorecard."""        
+        self.display_course_header()        
+        self.display_course_hole_number()        
+        print()
+        self.display_course_yardage()        
+        print()
+        self.display_course_hcp()
+        print()
+        self.display_course_par()
         

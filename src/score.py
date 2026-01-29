@@ -397,8 +397,195 @@ class Score:
             course_side=course_side,
             date_played=date_played,
             holes_played=score_holes_played
-        )
+        )       
+    
+    def display_score_horizontal_lines(self):
+        """Display the hole numbers"""
+        # Set the column width to use in the display
+        LABEL_WIDTH = 10
+        COL_WIDTH = 5
+        SUMMARY_WIDTH = 7
+        TOTAL_WIDTH = (LABEL_WIDTH) + (18 * COL_WIDTH) + (3 * SUMMARY_WIDTH)
+        print("-" * TOTAL_WIDTH)     
 
+    def display_score_hole_number(self):
+        """Display the hole numbers"""
+        # Set the column width to use in the display
+        LABEL_WIDTH = 10
+        COL_WIDTH = 5
+        SUMMARY_WIDTH = 7
 
+        self.display_score_horizontal_lines()  
         
+        # Define front_nine, back_nine because I need to break them up to 
+        # display OUT/IN/TOT
+        front_nine = self.holes_played[:9]
+        back_nine = self.holes_played[9:18]
+
+        # print the Holes for first 9, OUT, back 9, IN, and TOT
+        print(f"{'HOLE':{LABEL_WIDTH}}", end="|")
+
+        for hole in front_nine:
+            print(f"{hole.hole_number:{COL_WIDTH}}", end="|")
+
+        print(f"{'OUT':>{SUMMARY_WIDTH}} ", end="|")
+
+        for hole in back_nine:
+            print(f"{hole.hole_number:{COL_WIDTH}}", end="|")
+
+        print(f"{'IN':>{SUMMARY_WIDTH}} ", end="|")
+        print(f"{'TOT':>{SUMMARY_WIDTH}} ", end="|")  
+
+    def display_score_strokes(self):
+        """Display strokes for each hole, with totals for OUT/IN/TOT"""
+        # Set the column width to use in the display
+        LABEL_WIDTH = 9
+        COL_WIDTH = 4
+        SUMMARY_WIDTH = 5
         
+        # Define front_nine, back_nine because I need to break them up 
+        front_nine = self.holes_played[:9]
+        back_nine = self.holes_played[9:18]
+
+        # print the Par for first 9, OUT, back 9, IN, and TOT
+        print(f"{'Strokes':<{LABEL_WIDTH}}", end="|")
+
+        for hole in front_nine:
+            print(f"{hole.strokes:{COL_WIDTH}}", end="|")
+
+        print(f"{sum(hole.strokes for hole in front_nine):>{SUMMARY_WIDTH}} ", end="|")
+
+        for hole in back_nine:
+            print(f"{hole.strokes:{COL_WIDTH}}", end="|")
+
+        print(f"{sum(hole.strokes for hole in back_nine):>{SUMMARY_WIDTH}} ", end="|")
+        print(f"{sum(hole.strokes for hole in self.holes_played):>{SUMMARY_WIDTH}} ", end="|")
+
+    def display_score_putts(self):
+        """Display putts for each hole, with totals for OUT/IN/TOT"""
+        # Set the column width to use in the display
+        LABEL_WIDTH = 9
+        COL_WIDTH = 4
+        SUMMARY_WIDTH = 5
+        
+        # Define front_nine, back_nine because I need to break them up 
+        front_nine = self.holes_played[:9]
+        back_nine = self.holes_played[9:18]
+
+        # print the Putts for first 9, OUT, back 9, IN, and TOT
+        print(f"{'Putts':<{LABEL_WIDTH}}", end="|")
+
+        for hole in front_nine:
+            print(f"{hole.putts:{COL_WIDTH}}", end="|")
+
+        print(f"{sum(hole.putts or 0 for hole in front_nine):>{SUMMARY_WIDTH}} ", end="|")
+
+        for hole in back_nine:
+            print(f"{hole.putts:{COL_WIDTH}}", end="|")
+
+        print(f"{sum(hole.putts or 0 for hole in back_nine):>{SUMMARY_WIDTH}} ", end="|")
+        print(f"{sum(hole.putts or 0 for hole in self.holes_played):>{SUMMARY_WIDTH}} ", end="|")
+
+    def display_score_gir(self):
+        """Display if a green in regulation occurred on this hole"""
+        # Set the column width to use in the display
+        LABEL_WIDTH = 9
+        COL_WIDTH = 4
+        SUMMARY_WIDTH = 5
+        
+        # Define front_nine, back_nine because I need to break them up 
+        front_nine = self.holes_played[:9]
+        back_nine = self.holes_played[9:18]
+        
+        # print the GIR for first 9, OUT, back 9, IN, and TOT
+        print(f"{'GIR':<{LABEL_WIDTH}}", end="|")
+
+        # define a check mark to be used for GIR        
+        check_mark = "\u2713"
+
+        # display check mark if GIR, blank if no GIR        
+        for hole in front_nine:
+            symbol = check_mark if hole.gir else ""
+            print(f"{symbol:^{COL_WIDTH}}", end="|")
+
+        # print total GIRs on the front nine
+        front_nine_girs = sum(1 for hole in front_nine if hole.gir)
+        print(f"{front_nine_girs:>{SUMMARY_WIDTH}} ", end = "|")
+        
+        # display check mark if GIR, blank if no GIR        
+        for hole in back_nine:
+            symbol = check_mark if hole.gir else ""
+            print(f"{symbol:^{COL_WIDTH}}", end="|")
+
+        # print total GIRs on the back nine
+        back_nine_girs = sum(1 for hole in back_nine if hole.gir)
+        print(f"{back_nine_girs:>{SUMMARY_WIDTH}} ", end = "|")
+
+        # print total GIRs for the whole course
+        total_girs = front_nine_girs + back_nine_girs
+        print(f"{total_girs:>{SUMMARY_WIDTH}} ", end = "|")
+
+    def display_score_fairway(self):
+        """Display result of the drive on this hole"""
+        # Set the column width to use in the display
+        LABEL_WIDTH = 9
+        COL_WIDTH = 4
+        SUMMARY_WIDTH = 5
+        
+        # Define front_nine, back_nine because I need to break them up 
+        front_nine = self.holes_played[:9]
+        back_nine = self.holes_played[9:18]
+        
+        # print the GIR for first 9, OUT, back 9, IN, and TOT
+        print(f"{'Fairway':<{LABEL_WIDTH}}", end="|")
+
+        # Print L, F, R for drive result. If par 3, print nothing
+        # define the drive symbols to return based on result
+        drive_symbol = {
+            "LEFT": "\u2190",
+            "FAIRWAY": "\u25c9",
+            "RIGHT": "\u2192",
+            "PAR3": "",
+            None: ""
+        }        
+        
+        for hole in front_nine:            
+            symbol = drive_symbol.get(hole.drive, "") 
+            print(f"{symbol:^{COL_WIDTH}}", end="|")
+
+        print(f"{"":>{SUMMARY_WIDTH}} ", end = "|")
+
+        for hole in back_nine:            
+            symbol = drive_symbol.get(hole.drive, "") 
+            print(f"{symbol:^{COL_WIDTH}}", end="|")
+
+        print(f"{"":>{SUMMARY_WIDTH}} ", end = "|")
+        print(f"{"":>{SUMMARY_WIDTH}} ", end = "|")
+
+    def display_score_summary(self):
+        """Display the calculated statistics for the round
+            Total Strokes with +/- to par
+            Total Putts
+            Driving accuracy
+                Left
+                Fairway
+                Right
+            Greens in regulation percentage
+            Avg score for
+                Par 3s
+                Par 4s
+                Par 5s
+        """
+    
+    
+    def display_score_info(self):
+        """Display all score information"""
+        print()
+        self.display_score_horizontal_lines()
+        self.display_score_strokes()
+        print()
+        self.display_score_putts()
+        print()
+        self.display_score_gir()
+        print()
+        self.display_score_fairway()
