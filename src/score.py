@@ -290,33 +290,33 @@ class Score:
     
     # round_putts
     @property
-    def round_putts(self) -> int | None:
+    def round_putts(self) -> int:
         """calculates total putts. Check if the score is detailed and return
         None if it is"""
         if not self.is_detailed:
-            return None        
+            return 0        
         
         return sum(sh.putts or 0 for sh in self.holes_played)
     
     # gir_percent
     @property
-    def gir_percent(self) -> float | None:
+    def gir_percent(self) -> float:
         """Calculates green in regulation percentage. Check if score is detailed 
         and return None if it is"""
         if not self.is_detailed:
-            return None
+            return 0.0
         
         # sum() treats True as 1, False as 0
         girs = sum(1 for sh in self.holes_played if sh.gir)
         
-        return (girs / len(self.holes_played) * 100)
+        return (girs / len(self.holes_played))
 
     @property
-    def drive_accuracy(self) -> List[float] | None:
+    def drive_accuracy(self) -> List[float]:
         """returns a 3-member list of float values for driving accuracy in
         order of LEFT, FAIRWAY, RIGHT"""
         if not self.is_detailed:
-            return None
+            return [0.0, 0.0, 0.0]
 
         total_drives = 0
         left, fairway, right = 0, 0, 0
@@ -325,7 +325,7 @@ class Score:
             # Use 'or' to provide a fallback string for Intellisense
             res = (sh.drive or "").upper()
             
-            if res == 'Par3': 
+            if res == 'PAR3': 
                 continue
             total_drives += 1
             if res == 'LEFT':
@@ -564,19 +564,22 @@ class Score:
 
     def display_score_summary(self):
         """Display the calculated statistics for the round
-            Total Strokes with +/- to par
+            Total Strokes 
             Total Putts
             Driving accuracy
                 Left
                 Fairway
                 Right
-            Greens in regulation percentage
-            Avg score for
-                Par 3s
-                Par 4s
-                Par 5s
+            Greens in regulation percentage            
         """
-    
+        # Totals
+        print(f"Total Strokes: {self.round_score}") 
+        if self.is_detailed:
+            print(f"Total Putts: {self.round_putts}") 
+            print(f"GIR: {self.gir_percent:.0%}")         
+            print(f"Fairways: {self.drive_accuracy[1]:.0%}")
+            print(f"Drives missed left: {self.drive_accuracy[0]:.0%}")
+            print(f"Drives missed right: {self.drive_accuracy[2]:.0%}")
     
     def display_score_info(self):
         """Display all score information"""
@@ -589,3 +592,6 @@ class Score:
         self.display_score_gir()
         print()
         self.display_score_fairway()
+        print()
+        self.display_score_horizontal_lines()
+        self.display_score_summary()
