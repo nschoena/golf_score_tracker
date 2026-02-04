@@ -1,22 +1,116 @@
-import json
-from pathlib import Path
-from typing import List, TYPE_CHECKING
-from hole import Hole
-# TYPE_CHECKING is used here for clean import in a real file structure
-# if TYPE_CHECKING:
-#     from .hole import Hole  # Assuming you split Hole into its own file
-
 """
 File: course.py
 
 This module defines the data structure for a golf course mirroring the 
 established JSON schema as defined in course.schema.json.
 
-Imports are for:
-1. Utilization of List of a certain object for holes parameter
-2. Course uses Hole object
+Classes defined:
+- CourseHole: defines what a hole is as used in the Course class
+- Course: defines the components and methods of the golf course
 
 """
+import json
+from pathlib import Path
+from typing import List, TYPE_CHECKING
+
+class CourseHole:
+    """
+    The Hole class will represent a hole as observed on a golf course or on a
+    scorecard.
+    """
+    def __init__(self, hole_number: int, yardage: int, par: int, 
+                 handicap: int):
+        """
+        Initializes a Hole object representing a hole in the Course object.
+        
+        :param hole_number: Hole number on the course. This is unique and must 
+                            be between 1-18.
+        :param yardage: yardage in yards for this hole.
+        :param par: The strokes required (or less than) to be considered par for 
+                    the hole.
+        :param handicap: The handicap rating for the hole indicating difficulty.
+                         The lower the number, the harder the hole.
+        """
+        self.hole_number = hole_number # Calls the setter
+        self.yardage = yardage # Calls the setter
+        self.par = par # Calls the setter
+        self.handicap = handicap # Calls the setter
+
+    @property
+    def hole_number(self) -> int:
+        return self._hole_number
+    
+    @hole_number.setter
+    def hole_number(self, value: int):
+        """setter for hole_number, validating it is between 1-18"""
+        if not isinstance(value, (int, float)):
+            raise TypeError(f"Hole number must be an integer, received {type(value).__name__}.")
+        
+        # Validation Logic
+        MIN_HOLE_NUMBER = 1
+        MAX_HOLE_NUMBER = 18
+        if not (MIN_HOLE_NUMBER <= value <= MAX_HOLE_NUMBER):
+            raise ValueError(f"Hole number must be between {MIN_HOLE_NUMBER} and {MAX_HOLE_NUMBER}. Received: {value}")
+        
+        # Store the validated value in the internal variable
+        self._hole_number = int(value)
+
+    @property
+    def yardage(self) -> int:
+        return self._yardage
+    
+    @yardage.setter
+    def yardage(self, value: int):
+        """setter for yardage, validating it is between 3-6"""
+        if not isinstance(value, (int, float)):
+            raise TypeError(f"yardage must be an integer, received {type(value).__name__}.")
+        
+        # Validation Logic
+        MIN_YARDAGE = 50
+        MAX_YARDAGE = 700
+        if not (MIN_YARDAGE <= value <= MAX_YARDAGE):
+            raise ValueError(f"yardage must be between {MIN_YARDAGE} and {MAX_YARDAGE}. Received: {value}")
+        
+        # Store the validated value in the internal variable
+        self._yardage = int(value)
+        
+    @property
+    def par(self) -> int:
+        return self._par
+    
+    @par.setter
+    def par(self, value: int):
+        """setter for par, validating it is between 3-6"""
+        if not isinstance(value, (int, float)):
+            raise TypeError(f"Par must be an integer, received {type(value).__name__}.")
+        
+        # Validation Logic
+        MIN_PAR = 3
+        MAX_PAR = 6
+        if not (MIN_PAR <= value <= MAX_PAR):
+            raise ValueError(f"Par must be between {MIN_PAR} and {MAX_PAR}. Received: {value}")
+        
+        # Store the validated value in the internal variable
+        self._par = int(value)
+
+    @property
+    def handicap(self) -> int:
+        return self._handicap
+    
+    @handicap.setter
+    def handicap(self, value: int):
+        """setter for handicap, validating it is between 1-18"""
+        if not isinstance(value, (int, float)):
+            raise TypeError(f"Handicap must be an integer, received {type(value).__name__}.")
+        
+        # Validation Logic
+        MIN_HANDICAP = 1
+        MAX_HANDICAP = 18
+        if not (MIN_HANDICAP <= value <= MAX_HANDICAP):
+            raise ValueError(f"Handicap must be between {MIN_HANDICAP} and {MAX_HANDICAP}. Received: {value}")
+        
+        # Store the validated value in the internal variable
+        self._handicap = int(value)
 
 class Course:
     """
@@ -25,7 +119,7 @@ class Course:
     """
     def __init__(self, course_id: int, course_name: str, tees: str, 
                  course_side: str, location: str, rating: float, slope: int,
-                 holes: List[Hole]):
+                 course_holes: List[CourseHole]):
         """
         Initializes a new Course object. This function mirrors the structure 
         of the course.schema.json file
@@ -41,7 +135,7 @@ class Course:
         :param location: Geographic location of the golf course.
         :param rating: Rating of the golf course. 
         :param slope: Slope of the golf course.
-        :param holes: 9 or 18 sized array of Hole objects.
+        :param holes: 9 or 18 sized array of CourseHole objects.
         
         Note: Yardage and par for the course will be calculated from holes array
         
@@ -55,7 +149,7 @@ class Course:
         self.location = location
         self.rating = rating
         self.slope = slope        
-        self.holes = holes    
+        self.course_holes = course_holes    
 
     # Used for testing before the display function is written
     def __str__(self) -> str:
@@ -203,11 +297,11 @@ class Course:
         self._rating = float(value)
 
     @property
-    def holes(self) -> List[Hole]:
-        return self._holes
+    def course_holes(self) -> List[CourseHole]:
+        return self._course_holes
     
-    @holes.setter
-    def holes(self, value: List[Hole]):
+    @course_holes.setter
+    def course_holes(self, value: List[CourseHole]):
         """Setter for holes array. Validate that all the objects passed are
         actually objects of Hole class."""
         # Type check to make sure holes is actually a list
@@ -216,24 +310,24 @@ class Course:
                             f"{type(value).__name__}.")
         
         # Type check to make sure all objects in list are of Hole type
-        for h in value:
-            if not isinstance(h, Hole):
+        for ch in value:
+            if not isinstance(ch, CourseHole):
                 raise TypeError(f"elements in holes list must be of hole type. "
-                                f"Received {type(h).__name__}.")
+                                f"Received {type(ch).__name__}.")
 
         # Store the validated list in the internal variable
-        self._holes = value
+        self._course_holes = value
 
     # Calculated properties
     @property
     def yardage(self) -> int:
         """Calculates the total yardage based on yardage in the holes array"""
-        return sum(hole.yardage for hole in self._holes)
+        return sum(course_hole.yardage for course_hole in self._course_holes)
     
     @property
     def par(self) -> int:
         """Calculates the total par based on par in the holes array"""
-        return sum(hole.par for hole in self._holes)
+        return sum(hole.par for hole in self._course_holes)
     
     # Class methods
     @classmethod
@@ -244,21 +338,21 @@ class Course:
             raw_data = json.load(file)
 
         # Create empty array to store hole objects
-        hole_objects = []
+        course_hole_objects = []
 
         # iterate through the hole info in the dictionary and create a hole
         # object. On each loop, append the newly created hole to the 
         # hole_objects array.
         for hole_dict in raw_data['holes']:
             # 1. Create a Hole instance 'h' by passing in data from hole_dict
-            h = Hole(
+            ch = CourseHole(
                 hole_number=hole_dict['holeNumber'],
                 yardage=hole_dict['yardage'],
                 par=hole_dict['par'],
                 handicap=hole_dict['handicap']                
             )            
             # 2. Append 'h' to the hole_objects list
-            hole_objects.append(h)
+            course_hole_objects.append(ch)
 
         # assign the courseId property. Eventually this will be an identity 
         # field that will read the highest courseId from the database and 
@@ -285,11 +379,11 @@ class Course:
 
         # assign the yardage property. This is calculated based on the sum of
         # the yardages in the hole_objects array.
-        yardage = sum(hole.yardage for hole in hole_objects)        
+        yardage = sum(course_hole.yardage for course_hole in course_hole_objects)        
 
         # assign the par property. This is calculated based on the sum of
         # the par in the hole_objects array.
-        par = sum(hole.par for hole in hole_objects) 
+        par = sum(course_hole.par for course_hole in course_hole_objects) 
 
         # return the course class object
         # note:  that yardage and par are currently not part of the class but 
@@ -303,7 +397,7 @@ class Course:
             location=location,
             rating=rating,
             slope=slope,
-            holes=hole_objects
+            course_holes=course_hole_objects
         )
     
     def display_score_horizontal_lines(self):
@@ -335,19 +429,19 @@ class Course:
         
         # Define front_nine, back_nine because I need to break them up to 
         # display OUT/IN/TOT
-        front_nine = self._holes[:9]
-        back_nine = self._holes[9:18]
+        front_nine = self._course_holes[:9]
+        back_nine = self._course_holes[9:18]
 
         # print the Holes for first 9, OUT, back 9, IN, and TOT
         print(f"{'HOLE':{LABEL_WIDTH}}", end="|")
 
-        for hole in front_nine:
-            print(f"{hole.hole_number:{COL_WIDTH}}", end="|")
+        for course_hole in front_nine:
+            print(f"{course_hole.hole_number:{COL_WIDTH}}", end="|")
 
         print(f"{'OUT':>{SUMMARY_WIDTH}} ", end="|")
 
-        for hole in back_nine:
-            print(f"{hole.hole_number:{COL_WIDTH}}", end="|")
+        for course_hole in back_nine:
+            print(f"{course_hole.hole_number:{COL_WIDTH}}", end="|")
 
 
         print(f"{'IN':>{SUMMARY_WIDTH}} ", end="|")
@@ -362,22 +456,22 @@ class Course:
         
         # Define front_nine, back_nine because I need to break them up to 
         # display OUT/IN/TOT
-        front_nine = self._holes[:9]
-        back_nine = self._holes[9:18]
+        front_nine = self._course_holes[:9]
+        back_nine = self._course_holes[9:18]
 
         # print the yardages for first 9, OUT, back 9, IN, and TOT
         print(f"{self.tees:<{LABEL_WIDTH}}", end="|")
 
-        for hole in front_nine:
-            print(f"{hole.yardage:{COL_WIDTH}}", end="|")
+        for course_hole in front_nine:
+            print(f"{course_hole.yardage:{COL_WIDTH}}", end="|")
 
-        print(f"{sum(hole.yardage for hole in front_nine):{SUMMARY_WIDTH}} ", end="|")
+        print(f"{sum(course_hole.yardage for course_hole in front_nine):{SUMMARY_WIDTH}} ", end="|")
 
         for hole in back_nine:
-            print(f"{hole.yardage:4}", end="|")
+            print(f"{hole.yardage:{COL_WIDTH}}", end="|")
 
-        print(f"{sum(hole.yardage for hole in back_nine):{SUMMARY_WIDTH}} ", end="|")
-        print(f"{sum(hole.yardage for hole in self._holes):{SUMMARY_WIDTH}} ", end="|")
+        print(f"{sum(course_hole.yardage for course_hole in back_nine):{SUMMARY_WIDTH}} ", end="|")
+        print(f"{sum(course_hole.yardage for course_hole in self._course_holes):{SUMMARY_WIDTH}} ", end="|")
 
     def display_course_hcp(self):
         """Display HCP"""
@@ -388,19 +482,19 @@ class Course:
         
         # Define front_nine, back_nine because I need to break them up to 
         # display OUT/IN/TOT
-        front_nine = self._holes[:9]
-        back_nine = self._holes[9:18]
+        front_nine = self._course_holes[:9]
+        back_nine = self._course_holes[9:18]
 
         # print the HCPs for first 9, OUT, back 9, IN, and TOT
         print(f"{'HCP':<{LABEL_WIDTH}}", end="|")
 
-        for hole in front_nine:
-            print(f"{hole.handicap:{COL_WIDTH}}", end="|")
+        for course_hole in front_nine:
+            print(f"{course_hole.handicap:{COL_WIDTH}}", end="|")
 
         print(f"{'':{SUMMARY_WIDTH}}", end="|")
 
-        for hole in back_nine:
-            print(f"{hole.handicap:{COL_WIDTH}}", end="|")
+        for course_hole in back_nine:
+            print(f"{course_hole.handicap:{COL_WIDTH}}", end="|")
 
         print(f"{'':{SUMMARY_WIDTH}}", end="|")
         print(f"{'':{SUMMARY_WIDTH}}", end="|") 
@@ -413,22 +507,22 @@ class Course:
         SUMMARY_WIDTH = 5
         
         # Define front_nine, back_nine because I need to break them up 
-        front_nine = self._holes[:9]
-        back_nine = self._holes[9:18]
+        front_nine = self._course_holes[:9]
+        back_nine = self._course_holes[9:18]
 
         # print the Par for first 9, OUT, back 9, IN, and TOT
         print(f"{'PAR':<{LABEL_WIDTH}}", end="|")
 
-        for hole in front_nine:
-            print(f"{hole.par:{COL_WIDTH}}", end="|")
+        for course_hole in front_nine:
+            print(f"{course_hole.par:{COL_WIDTH}}", end="|")
 
-        print(f"{sum(hole.par for hole in front_nine):>{SUMMARY_WIDTH}} ", end="|")
+        print(f"{sum(course_hole.par for course_hole in front_nine):>{SUMMARY_WIDTH}} ", end="|")
 
-        for hole in back_nine:
-            print(f"{hole.par:4}", end="|")
+        for course_hole in back_nine:
+            print(f"{course_hole.par:{COL_WIDTH}}", end="|")
 
-        print(f"{sum(hole.par for hole in back_nine):>{SUMMARY_WIDTH}} ", end="|")
-        print(f"{sum(hole.par for hole in self._holes):>{SUMMARY_WIDTH}} ", end="|") 
+        print(f"{sum(course_hole.par for course_hole in back_nine):>{SUMMARY_WIDTH}} ", end="|")
+        print(f"{sum(course_hole.par for course_hole in self._course_holes):>{SUMMARY_WIDTH}} ", end="|") 
 
     def display_course_info(self):
         """Display course info to the command line in a scorecard-like format.

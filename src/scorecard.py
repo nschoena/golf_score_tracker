@@ -8,10 +8,8 @@ import json
 from pathlib import Path
 from typing import List, TYPE_CHECKING
 from datetime import date, datetime
-import score
-import score_hole
-import course 
-import hole
+from course import *
+from score import *
 
 class ScoreCard:
     """
