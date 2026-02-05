@@ -29,9 +29,7 @@ class ScoreHole:
                  drive: str | None = None, 
                  gir: bool | None = None):
         """
-        Docstring for __init__
-        
-        Normal
+        All:
         :param hole_number: number of the hole on the golf course
         :param strokes: total strokes including putts
 
@@ -181,7 +179,7 @@ class ScoreHole:
         if value_to_check not in ALLOWED_DRIVE_VALUES:
             raise ValueError(f"Drive must be either 'Left', 'Fairway', " 
                              f"'Right', or 'Par3' (Capitalization doesn't"
-                             f"matter). You entered {value}.")
+                             f" matter). You entered {value}.")
         
         # Store the validated value in the internal variable
         self._drive = value.upper()
@@ -213,8 +211,6 @@ class Score:
                  tees: str, course_side: str, date_played: date,  
                  holes_played: List[ScoreHole]):
         """
-        Docstring for __init__
-        
         :param score_id: Serves as primary key and easy way to reference the
             round played. Eventually, this should be looked up in the database 
             and use next available id.        
@@ -588,6 +584,9 @@ class Score:
             holes_played=score_holes_played
         )       
     
+    #
+    # instance methods
+    #    
     def display_score_horizontal_lines(self):
         """Display the hole numbers"""
         # Set the column width to use in the display

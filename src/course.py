@@ -403,22 +403,22 @@ class Course:
     def display_score_horizontal_lines(self):
         """Display the hole numbers"""
         # Set the column width to use in the display
-        LABEL_WIDTH = 9
-        COL_WIDTH = 4
-        SUMMARY_WIDTH = 5
-        TOTAL_WIDTH = (LABEL_WIDTH + 1) + (18 * (COL_WIDTH + 1)) + (3 * (SUMMARY_WIDTH + 2))
+        LABEL_WIDTH = 10
+        COL_WIDTH = 5
+        SUMMARY_WIDTH = 7
+        TOTAL_WIDTH = (LABEL_WIDTH) + (18 * COL_WIDTH) + (3 * SUMMARY_WIDTH)
         print("-" * TOTAL_WIDTH)
     
     def display_course_header(self):
-        """Displays course header info for the scorecard"""        
-        self.display_score_horizontal_lines()
+        """Displays course header info for the scorecard"""  
+        COL_WIDTH = 8              
         print(f"{self.course_name}")
         print(f"{self.location}")
-        print(f"Rating: {self.rating}")
-        print(f"{'Slope:':7} {self.slope}")
-        print(f"Yardage: {self.yardage}")
-        print(f"Par: {self.par}")
-        self.display_score_horizontal_lines()
+        print(f"{self.tees.title()} tees")
+        print(f"{'Rating:':{COL_WIDTH}} {self.rating}")
+        print(f"{'Slope:':{COL_WIDTH}} {self.slope}")
+        print(f"{'Yardage':{COL_WIDTH}} {self.yardage}")
+        print(f"{'Par:':{COL_WIDTH}} {self.par}")        
     
     def display_course_hole_number(self):
         """Display the hole numbers"""
@@ -460,7 +460,7 @@ class Course:
         back_nine = self._course_holes[9:18]
 
         # print the yardages for first 9, OUT, back 9, IN, and TOT
-        print(f"{self.tees:<{LABEL_WIDTH}}", end="|")
+        print(f"{'YDS':<{LABEL_WIDTH}}", end="|")
 
         for course_hole in front_nine:
             print(f"{course_hole.yardage:{COL_WIDTH}}", end="|")
@@ -527,7 +527,9 @@ class Course:
     def display_course_info(self):
         """Display course info to the command line in a scorecard-like format.
         Call each method to display the entirety of the scorecard."""        
+        self.display_score_horizontal_lines()
         self.display_course_header()        
+        self.display_score_horizontal_lines()
         self.display_course_hole_number()        
         print()
         self.display_course_yardage()        
