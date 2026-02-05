@@ -34,8 +34,9 @@ score_file_to_load = SCORE_BASE_PATH / "20251004_village_green_white.json"
 village_green_white_20251004_score = Score.load_from_json(score_file_to_load)
 
 # Use ScoreCard class to display the scorecard and additional analytics
-score = ScoreCard.load_scorecard(village_green_white_course, village_green_white_20251004_score)
-score.display_scorecard()
+scorecard = ScoreCard.load_scorecard(village_green_white_course, village_green_white_20251004_score)
+scorecard.display_scorecard()
+scorecard.calc_par_averages()
 
 # --- Script Execution Block ---
 if __name__ == "__main__":
